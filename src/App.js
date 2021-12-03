@@ -4,7 +4,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Slide from '@mui/material/Slide';
 import * as React from 'react';
-import Dropzone from 'react-dropzone';
+import 'react-image-crop/dist/ReactCrop.css';
+import Crop from './Crop';
+
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -14,8 +16,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function App() {
   const [open, setOpen] = React.useState(false);
-  const [src, setSrc] = React.useState("");
-  const [file, setFiles] = React.useState([]);
+  // const [src, setSrc] = React.useState("");
+  // const [file, setFiles] = React.useState([]);
+ 
+
+  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -25,15 +30,13 @@ function App() {
     setOpen(false);
   };
 
-  const handleFile = (acceptedFiles )=>{
-  //   console.log(acceptedFiles[0].name)
-  //  return setSrc(acceptedFiles[0].name)
-      return setFiles(acceptedFiles.map(file => Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      })));
-  }
+  // const handleFile = (acceptedFiles )=>{
+  //     return setFiles(acceptedFiles.map(file => Object.assign(file, {
+  //       preview: URL.createObjectURL(file)
+  //     })));      
+  // }
   
-console.log()
+ 
 
 
 
@@ -52,7 +55,7 @@ console.log()
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogContent>
-          <Dropzone onDrop={acceptedFiles => handleFile(acceptedFiles)}>
+          {/* <Dropzone onDrop={acceptedFiles => handleFile(acceptedFiles)}>
               {({getRootProps, getInputProps}) => (
                 <section>
                   <div {...getRootProps()}>
@@ -61,8 +64,11 @@ console.log()
                   </div>
                 </section>
               )}
-          </Dropzone>
-          <img style={{width:"100px"}} src={file.map((item)=>(item.preview))}/>
+          </Dropzone> */}
+          <Crop/>
+         
+          {/* <img src={file.map((item)=>(item.preview))}/> */}
+
         </DialogContent>
         <DialogActions>
           <Button variant="contained" color="error" onClick={handleClose}>Cancel</Button>
