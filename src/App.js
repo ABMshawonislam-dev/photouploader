@@ -1,13 +1,11 @@
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import * as React from 'react';
+import Dropzone from 'react-dropzone';
 
-import Dropzone from 'react-dropzone'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -16,6 +14,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function App() {
   const [open, setOpen] = React.useState(false);
+  const [src, setSrc] = React.useState("");
+  const [file, setFiles] = React.useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -25,9 +25,18 @@ function App() {
     setOpen(false);
   };
 
-  const handleFile = (acceptedFiles )=>(
-    console.log(acceptedFiles[0].name)
-  )
+  const handleFile = (acceptedFiles )=>{
+  //   console.log(acceptedFiles[0].name)
+  //  return setSrc(acceptedFiles[0].name)
+      return setFiles(acceptedFiles.map(file => Object.assign(file, {
+        preview: URL.createObjectURL(file)
+      })));
+  }
+  
+console.log()
+
+
+
   return (
     <>
     
@@ -53,6 +62,7 @@ function App() {
                 </section>
               )}
           </Dropzone>
+          <img style={{width:"100px"}} src={file.map((item)=>(item.preview))}/>
         </DialogContent>
         <DialogActions>
           <Button variant="contained" color="error" onClick={handleClose}>Cancel</Button>
